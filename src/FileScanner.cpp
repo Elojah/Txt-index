@@ -33,19 +33,34 @@ FileScanner		&FileScanner::operator=(FileScanner const &rhs) {
 **Check for extension .txt
 */
 bool			FileScanner::isScannableFile(char const *name) {
-	static const char			extension[] = ".txt";
-	static const unsigned int	lenExt = 4;
+	static const char			extension[4][5] = {".c", ".h", ".cpp", ".hpp"};
+	static const unsigned int	lenExt[] = {2, 2, 4, 4};
 	unsigned int				len;
+	bool						result;
+	bool						tmp;
 
-	if (!name || (len = strlen(name)) < lenExt) {
+	result = false;
+	if (!name) {
 		return (false);
 	}
-	for (unsigned int i = 0; i < lenExt; ++i) {
-		if (name[len - lenExt + i] != extension[i]) {
-			return (false);
+	len = strlen(name);
+	for (unsigned int i = 0; i < 4; ++i) {
+		if (len < lenExt[i]) {
+			continue ;
 		}
+		tmp = false;
+		for (unsigned int j = 0; j < lenExt[i]; ++j) {
+			if (name[len - lenExt[i] + j] != extension[i][j]) {
+				tmp = true;
+			}
+		}
+		if (tmp) {
+			continue ;
+		}
+		result = true;
+		break ;
 	}
-	return (true);
+	return (result);
 }
 
 void			FileScanner::scanChildren(char *path) {
@@ -68,7 +83,7 @@ void			FileScanner::scanChildren(char *path) {
 }
 
 void			FileScanner::scanFile(char *filename) {
-	static const char	separators[] = " \t";
+	static const char	separators[] = " \t(){}";
 	std::string			line;
 	std::ifstream		ifs;
 	char				*pch;
