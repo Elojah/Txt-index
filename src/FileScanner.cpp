@@ -122,7 +122,7 @@ void			FileScanner::ask(void) {
 	std::string	input;
 
 	/*
-	**If you're searching for q, you're
+	**If you're searching for q, you're screwed
 	*/
 	while (true) {
 		std::cout << "Search(q for quit): ";
