@@ -16,14 +16,15 @@ struct			sList {
 		value = valueSet;
 		next = NULL;
 	}
-	void		addLst(char *valueSet) {
+	sList		*addLst(char *valueSet) {
 		if (value != NULL && strcmp(value, valueSet) == 0) {
-			return ;
+			return (NULL);
 		} else if (next != NULL) {
-			next->addLst(valueSet);
+			return (next->addLst(valueSet));
 		} else {
 			next = new sList;
 			next->create(valueSet);
+			return (next);
 		}
 	}
 	void		display(void) {
