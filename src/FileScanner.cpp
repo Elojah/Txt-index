@@ -52,6 +52,7 @@ bool			FileScanner::isScannableFile(char const *name) {
 		for (unsigned int j = 0; j < lenExt[i]; ++j) {
 			if (name[len - lenExt[i] + j] != extension[i][j]) {
 				tmp = true;
+				break ;
 			}
 		}
 		if (tmp) {

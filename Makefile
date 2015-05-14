@@ -7,7 +7,7 @@ BUILD_DIR = build
 LIB_DIR =
 
 #Options
-CC = clang++
+CC = clang++-3.6
 SRC_EXT = .cpp
 RM = rm -rf
 
