@@ -45,10 +45,10 @@ bool			FileScanner::isScannableFile(char const *name) {
 	}
 	len = strlen(name);
 	for (unsigned int i = 0; i < 4; ++i) {
+		tmp = false;
 		if (len < lenExt[i]) {
 			continue ;
 		}
-		tmp = false;
 		for (unsigned int j = 0; j < lenExt[i]; ++j) {
 			if (name[len - lenExt[i] + j] != extension[i][j]) {
 				tmp = true;

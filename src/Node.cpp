@@ -37,37 +37,43 @@ void		Node::create(void) {
 }
 
 void		Node::addValue(char const *s, char *value) {
-	int		c;
+	int		n;
 
 	if (!s) {
 		return ;
-	} else if (*s == '\0') {
+	}
+	n = static_cast<int>(*s);
+	if (*s == '\0') {
 		if (_files != NULL) {
 			_files->addLst(value);
 		} else {
 			_files = new sList;
 			_files->create(value);
 		}
-	} else if (*s > 0) {/*Check here for valid chars (unsigned, etc.)*/
-		c = static_cast<int>(*s);
-		if (_children[c]._children == NULL) {
-			_children[c].create();
+	} else if (Node::isValidChar(n)) {
+		if (_children[n]._children == NULL) {
+			_children[n].create();
 		}
-		_children[c].addValue(s + 1, value);
+		_children[n].addValue(s + 1, value);
 	}
 }
 
 Node		*Node::getSNode(char *s) {
 	int		n;
 
+	n = static_cast<int>(*s);
 	if (*s == '\0') {
 		return (this);
-	} else if ((n = static_cast<int>(*s)) >= 0 && n < MAX_CHARS_ASCII/*Check here for valid chars (unsigned, etc.)*/
-		&& _children[n]._children != NULL) {
+	} else if (Node::isValidChar(n) && _children[n]._children != NULL) {
 		return (_children[n].getSNode(s + 1));
 	} else {
 		return (NULL);
 	}
+}
+
+bool		Node::isValidChar(int n) {
+	/*n >= 0 && n < MAX_CHARS_ASCII is MANDATORY*/
+	return (n >= 0 && n < MAX_CHARS_ASCII);
 }
 
 /*

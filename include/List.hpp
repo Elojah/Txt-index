@@ -9,15 +9,18 @@
 **Basic struct list to register filenames
 */
 struct			sList {
-	char		*value;
-	sList		*next;
+	char			*value;
+	sList			*next;
+	unsigned int	count;
 
 	void		create(char *valueSet) {
 		value = valueSet;
 		next = NULL;
+		count = 1;
 	}
 	sList		*addLst(char *valueSet) {
 		if (value != NULL && strcmp(value, valueSet) == 0) {
+			count++;
 			return (NULL);
 		} else if (next != NULL) {
 			return (next->addLst(valueSet));
@@ -28,7 +31,7 @@ struct			sList {
 		}
 	}
 	void		display(void) {
-		std::cout << "\t" << value << std::endl;
+		std::cout << "\t" << value << "\t" << count << " occs." << std::endl;
 		if (next != NULL) {
 			next->display();
 		}

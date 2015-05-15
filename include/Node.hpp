@@ -1,7 +1,7 @@
 #ifndef NODE_H
 # define NODE_H
 
-# define MAX_CHARS_ASCII 256
+# define MAX_CHARS_ASCII 128
 # include "List.hpp"
 
 class Node
@@ -20,6 +20,7 @@ private:
 
 	Node(Node const &src);
 	Node&	operator=(Node const &rhs);
+	static bool	isValidChar(int n);
 
 	Node		*_children;
 	sList		*_files;
