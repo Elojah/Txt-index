@@ -4,7 +4,8 @@
 
 Node::Node(void) :
 	_children(NULL),
-	_files(NULL) {
+	_files(NULL),
+	_last(NULL) {
 }
 
 Node::Node(Node const &src) {
@@ -38,17 +39,22 @@ void		Node::create(void) {
 
 void		Node::addValue(char const *s, char *value) {
 	int		n;
+	sList	*tmp;
 
 	if (!s) {
 		return ;
 	}
 	n = static_cast<int>(*s);
 	if (*s == '\0') {
-		if (_files != NULL) {
-			_files->addLst(value);
+		if (_last != NULL) {
+			tmp = _last->addLst(value);
+			if (tmp != NULL) {
+				_last = tmp;
+			}
 		} else {
 			_files = new sList;
 			_files->create(value);
+			_last = _files;
 		}
 	} else if (Node::isValidChar(n)) {
 		if (_children[n]._children == NULL) {

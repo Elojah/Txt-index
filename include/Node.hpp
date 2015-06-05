@@ -24,7 +24,7 @@ private:
 
 	Node		*_children;
 	sList		*_files;
-
+	sList		*_last;
 };
 
 #endif

@@ -77,14 +77,14 @@ void			FileScanner::scanChildren(char *path) {
 			if (!strcmp(ent->d_name, ".") || !strcmp(ent->d_name, "..")) {
 				continue ;
 			}
-			scan(&((std::string(path) + '/' + ent->d_name)[0]));/*LEAKS*/
+			scan(&((std::string(path) + '/' + ent->d_name)[0]));
 		}
 	}
 	closedir(dir);
 }
 
 void			FileScanner::scanFile(char *filename) {
-	static const char	separators[] = " \t(){}";
+	static const char	separators[] = " \t(){}#;,.:*";
 	std::string			line;
 	std::ifstream		ifs;
 	char				*pch;
