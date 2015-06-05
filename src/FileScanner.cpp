@@ -18,6 +18,7 @@ FileScanner::FileScanner(FileScanner const &src) {
 }
 
 FileScanner::~FileScanner(void) {
+	std::cout << "Destructing saved values, please wait a few seconds ..." << std::endl;
 	_files.freeValues();
 	_files.remove();
 }
@@ -144,14 +145,14 @@ void			FileScanner::ask(void) {
 	**If you're searching for q, you're screwed
 	*/
 	while (true) {
-		std::cout << "Search(q for quit): ";
+		std::cout << "Search(qq; for quit): ";
 		std::cin >> input;
 		if (std::cin.eof() == 1) {
 			std::cin.clear();
 			std::cin.ignore();
 			continue;
 		}
-		if (strcmp(input.c_str(), "q") == 0) {
+		if (strcmp(input.c_str(), "qq;") == 0) {
 			break ;
 		} else {
 			_t.searchValue(input);

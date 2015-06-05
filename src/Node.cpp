@@ -96,7 +96,7 @@ void		Node::display(void) {
 			++nFiles;
 			_files = _files->next;
 		}
-		std::cout << "____" << nOccs << " occurences in " << nFiles << " files____" << std::endl;
+		std::cout << "\033[1;4;34m" << nOccs << " occurences in " << nFiles << " files\033[0m" << std::endl;
 	} else {
 		std::cout << "No results found" << std::endl;
 	}

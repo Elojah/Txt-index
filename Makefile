@@ -1,9 +1,10 @@
-TARGET = bin/runner
+TARGET = runner
 
 #Directories
 SRC_DIR = src
 INC_DIR = include
 BUILD_DIR = build
+BIN_DIR = bin
 LIB_DIR =
 
 #Options
@@ -46,7 +47,7 @@ INC += $(addprefix -I,$(INC_DIR))
 INC += $(addsuffix /include, $(addprefix -I, $(LIB_LOCAL)))
 
 #RULES
-all : dirbin $(TARGET)
+all : dirbin $(BIN_DIR)/$(TARGET)
 
 clean :
 	$(RM) $(BUILD_DIR)
@@ -57,21 +58,21 @@ fclean :
 re : fclean all
 
 dirbin:
-	mkdir -p bin
+	mkdir -p $(BIN_DIR)
 
 .PHONY: all clean fclean re
 
 .SILENT: dirbuild dirbin
 
 #Build rule
-$(TARGET) : $(OBJ)
-	@echo "\n\033[1;4;34mLNK:\033[0m\n"$^"\n\033[36mLinking objects ...\033[0m\n"
+$(BIN_DIR)/$(TARGET) : $(OBJ)
+	@echo "\n\033[1;4;34mLINK:\033[0m\n"$^"\n\033[36mLinking objects ...\033[0m\n"
 	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
 
 #Compilation rule
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%$(SRC_EXT)
 	@mkdir -p $(dir $@)
-	@echo "\n\033[1;4;34mCMP:\033[0m\n"$<"\n\033[36mCompiling src ...\033[0m"
+	@echo "\n\033[1;4;34mCOMPIL:\033[0m\n"$<"\n\033[36mCompiling src ...\033[0m"
 	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
 -include $(DEP)

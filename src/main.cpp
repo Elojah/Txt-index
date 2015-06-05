@@ -16,5 +16,6 @@ int				main(int ac, char **av) {
 	} else {
 		exec(av[1]);
 	}
+	write(1, "Thanks for using me, see ya !\n", 30);
 	return (0);
 }
