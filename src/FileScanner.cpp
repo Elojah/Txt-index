@@ -8,6 +8,11 @@
 #include <unistd.h>
 #include <string.h>
 
+const char			FileScanner::_separators[NB_SEP] = " \t(){}#;,.:*_/\"";
+const char			FileScanner::_extension[NB_EXT][5] = {".c", ".h", ".cpp", ".hpp"};
+const unsigned int	FileScanner::_lenExt[NB_EXT] = {2, 2, 4, 4};
+
+
 FileScanner::FileScanner(void) {
 	_files.create(NULL);
 }
@@ -30,12 +35,7 @@ FileScanner		&FileScanner::operator=(FileScanner const &rhs) {
 	return (*this);
 }
 
-/*
-**Check for extension .txt
-*/
 bool			FileScanner::isScannableFile(char const *name) {
-	static const char			extension[4][5] = {".c", ".h", ".cpp", ".hpp"};
-	static const unsigned int	lenExt[] = {2, 2, 4, 4};
 	unsigned int				len;
 	bool						result;
 	bool						tmp;
@@ -47,11 +47,11 @@ bool			FileScanner::isScannableFile(char const *name) {
 	len = strlen(name);
 	for (unsigned int i = 0; i < 4; ++i) {
 		tmp = false;
-		if (len < lenExt[i]) {
+		if (len < _lenExt[i]) {
 			continue ;
 		}
-		for (unsigned int j = 0; j < lenExt[i]; ++j) {
-			if (name[len - lenExt[i] + j] != extension[i][j]) {
+		for (unsigned int j = 0; j < _lenExt[i]; ++j) {
+			if (name[len - _lenExt[i] + j] != _extension[i][j]) {
 				tmp = true;
 				break ;
 			}
@@ -85,7 +85,6 @@ void			FileScanner::scanChildren(char *path) {
 }
 
 void			FileScanner::scanFile(char *filename) {
-	static const char	separators[] = " \t(){}#;,.:*";
 	std::string			line;
 	std::ifstream		ifs;
 	char				*pch;
@@ -104,10 +103,10 @@ void			FileScanner::scanFile(char *filename) {
 		last = testList;
 	}
 	while (std::getline(ifs, line)) {
-		pch = strtok(&(line[0]), separators);
+		pch = strtok(&(line[0]), _separators);
 		while (pch != NULL) {
 			_t.addValue(pch, tmp);
-			pch = strtok (NULL, separators);
+			pch = strtok (NULL, _separators);
 		}
 		line.clear();
 	}
@@ -141,9 +140,6 @@ void			FileScanner::scan(char *path) {
 void			FileScanner::ask(void) {
 	std::string	input;
 
-	/*
-	**If you're searching for q, you're screwed
-	*/
 	while (true) {
 		std::cout << "Search(qq; for quit): ";
 		std::cin >> input;

@@ -18,6 +18,7 @@ struct			sList {
 		next = NULL;
 		count = 1;
 	}
+
 	sList		*addLst(char *valueSet) {
 		if (value != NULL && strcmp(value, valueSet) == 0) {
 			count++;
@@ -30,12 +31,14 @@ struct			sList {
 			return (next);
 		}
 	}
+
 	void		display(void) {
-		std::cout << "\t" << value << "\t\033[36m" << count << "\033[0m" << std::endl;
+		std::cout << "\t\033[36m" << count << "\033[0m" << "\t" << value << std::endl;
 		if (next != NULL) {
 			next->display();
 		}
 	}
+
 	/*
 	**freeValues must be used once (FileScanner.files)
 	*/
@@ -48,6 +51,7 @@ struct			sList {
 			value = NULL;
 		}
 	}
+
 	void		remove(void) {
 		if (next != NULL) {
 			next->remove();
