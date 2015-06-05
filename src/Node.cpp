@@ -86,8 +86,17 @@ bool		Node::isValidChar(int n) {
 **To improve by replacing with operator<< ?
 */
 void		Node::display(void) {
+	unsigned int		nOccs(0);
+	unsigned int		nFiles(0);
+
 	if (_files != NULL) {
 		_files->display();
+		while (_files != NULL) {
+			nOccs += _files->count;
+			++nFiles;
+			_files = _files->next;
+		}
+		std::cout << "____" << nOccs << " occurences in " << nFiles << " files____" << std::endl;
 	} else {
 		std::cout << "No results found" << std::endl;
 	}

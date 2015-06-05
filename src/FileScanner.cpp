@@ -90,6 +90,7 @@ void			FileScanner::scanFile(char *filename) {
 	char				*pch;
 	char				*tmp;
 	static sList		*last = &_files;
+	sList				*testList;
 
 	std::cout << "Scannable File" << std::endl;
 	ifs.open(filename);
@@ -98,7 +99,9 @@ void			FileScanner::scanFile(char *filename) {
 	}
 	/*tmp is used to save filenames in _files and not duplicate them*/
 	tmp = strdup(filename);
-	last = last->addLst(tmp);
+	if ((testList = last->addLst(tmp)) != NULL) {
+		last = testList;
+	}
 	while (std::getline(ifs, line)) {
 		pch = strtok(&(line[0]), separators);
 		while (pch != NULL) {
