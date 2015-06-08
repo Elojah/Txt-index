@@ -31,7 +31,7 @@ struct			sList {
 		}
 	}
 	void		display(void) {
-		std::cout << "\t" << value << "\t\033[36m" << count << "\033[0m" << std::endl;
+		std::cout << "\t" << "\t\033[36m" << count << "\t\033[0m" << value << std::endl;
 		if (next != NULL) {
 			next->display();
 		}
