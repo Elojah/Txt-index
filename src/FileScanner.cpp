@@ -8,7 +8,8 @@
 #include <unistd.h>
 #include <string.h>
 
-FileScanner::FileScanner(void) {
+FileScanner::FileScanner(void) :
+	_countFiles(0) {
 	_files.create(NULL);
 }
 
@@ -85,7 +86,7 @@ void			FileScanner::scanChildren(char *path) {
 }
 
 void			FileScanner::scanFile(char *filename) {
-	static const char	separators[] = " \t(){}#;,.:*";
+	static const char	separators[] = " \t(){}#;,.:*/\\=!-<>";
 	std::string			line;
 	std::ifstream		ifs;
 	char				*pch;
@@ -94,6 +95,7 @@ void			FileScanner::scanFile(char *filename) {
 	sList				*testList;
 
 	std::cout << "Scannable File" << std::endl;
+	++_countFiles;
 	ifs.open(filename);
 	if (ifs.fail()) {
 		return ;
@@ -144,8 +146,9 @@ void			FileScanner::ask(void) {
 	/*
 	**If you're searching for q, you're screwed
 	*/
+	std::cout << "\t\033[36m" << _countFiles << "\t\033[0m" << " files found." << std::endl;
 	while (true) {
-		std::cout << "Search(qq; for quit): ";
+		std::cout << "Search(qq; for quit):";
 		std::cin >> input;
 		if (std::cin.eof() == 1) {
 			std::cin.clear();
