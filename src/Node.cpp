@@ -64,7 +64,7 @@ void		Node::addValue(char const *s, char *value) {
 	}
 }
 
-Node		*Node::getSNode(char *s) {
+Node const	*Node::getSNode(char *s) const {
 	int		n;
 
 	n = static_cast<int>(*s);
@@ -85,16 +85,18 @@ bool		Node::isValidChar(int n) {
 /*
 **To improve by replacing with operator<< ?
 */
-void		Node::display(void) {
+void		Node::display(void) const {
 	unsigned int		nOccs(0);
 	unsigned int		nFiles(0);
+	sList				*tmp;
 
 	if (_files != NULL) {
 		_files->display();
-		while (_files != NULL) {
-			nOccs += _files->count;
+		tmp = _files;
+		while (tmp != NULL) {
+			nOccs += tmp->count;
 			++nFiles;
-			_files = _files->next;
+			tmp = tmp->next;
 		}
 		std::cout << "\033[1;4;34m" << nOccs << " occurences in " << nFiles << " files\033[0m" << std::endl;
 	} else {

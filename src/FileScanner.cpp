@@ -8,12 +8,14 @@
 #include <unistd.h>
 #include <string.h>
 
+<<<<<<< HEAD
 const char			FileScanner::_separators[NB_SEP] = " \t(){}#;,.:*_/\"";
 const char			FileScanner::_extension[NB_EXT][5] = {".c", ".h", ".cpp", ".hpp"};
 const unsigned int	FileScanner::_lenExt[NB_EXT] = {2, 2, 4, 4};
 
 
-FileScanner::FileScanner(void) {
+FileScanner::FileScanner(void) :
+	_countFiles(0) {
 	_files.create(NULL);
 }
 
@@ -93,6 +95,7 @@ void			FileScanner::scanFile(char *filename) {
 	sList				*testList;
 
 	std::cout << "Scannable File" << std::endl;
+	++_countFiles;
 	ifs.open(filename);
 	if (ifs.fail()) {
 		return ;
@@ -140,8 +143,12 @@ void			FileScanner::scan(char *path) {
 void			FileScanner::ask(void) {
 	std::string	input;
 
+	/*
+	**If you're searching for qq;, you're screwed
+	*/
+	std::cout << "\t\033[36m" << _countFiles << "\t\033[0m" << " files found." << std::endl;
 	while (true) {
-		std::cout << "Search(qq; for quit): ";
+		std::cout << "Search(qq; for quit):";
 		std::cin >> input;
 		if (std::cin.eof() == 1) {
 			std::cin.clear();

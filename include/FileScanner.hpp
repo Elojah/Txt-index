@@ -32,6 +32,7 @@ private:
 
 	Trie			_t;
 	sList			_files;
+	unsigned int	_countFiles;
 };
 
 #endif

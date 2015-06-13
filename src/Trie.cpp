@@ -25,7 +25,7 @@ void	Trie::addValue(char const *s, char *filename) {
 }
 
 void	Trie::searchValue(std::string &s) {
-	Node	*node;
+	Node const	*node;
 
 	if ((node = _root.getSNode(&(s[0]))) != NULL) {
 		node->display();

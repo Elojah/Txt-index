@@ -8,7 +8,7 @@ BIN_DIR = bin
 LIB_DIR =
 
 #Options
-CC = clang++-3.6
+CC = clang++
 SRC_EXT = .cpp
 RM = rm -rf
 

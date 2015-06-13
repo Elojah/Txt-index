@@ -12,8 +12,8 @@ public:
 
 	void		create(void);
 	void		addValue(char const *s, char *value);
-	Node		*getSNode(char *s);
-	void		display(void);
+	Node const	*getSNode(char *s) const;
+	void		display(void) const;
 
 protected:
 private:
