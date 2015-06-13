@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include <string.h>
 
-<<<<<<< HEAD
 const char			FileScanner::_separators[NB_SEP] = " \t(){}#;,.:*_/\"";
 const char			FileScanner::_extension[NB_EXT][5] = {".c", ".h", ".cpp", ".hpp"};
 const unsigned int	FileScanner::_lenExt[NB_EXT] = {2, 2, 4, 4};

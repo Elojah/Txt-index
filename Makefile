@@ -8,7 +8,7 @@ BIN_DIR = bin
 LIB_DIR =
 
 #Options
-CC = clang++
+CC = clang++-3.6
 SRC_EXT = .cpp
 RM = rm -rf
 
@@ -53,7 +53,7 @@ clean :
 	$(RM) $(BUILD_DIR)
 
 fclean :
-	$(RM) $(BUILD_DIR) $(TARGET)
+	$(RM) $(BUILD_DIR) $(BIN_DIR)/$(TARGET)
 
 re : fclean all
 
