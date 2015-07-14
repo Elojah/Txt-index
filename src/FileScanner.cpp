@@ -39,7 +39,6 @@ FileScanner		&FileScanner::operator=(FileScanner const &rhs) {
 bool			FileScanner::isScannableFile(char const *name) {
 	unsigned int				len;
 	bool						result;
-	bool						tmp;
 
 	result = false;
 	if (!name) {
@@ -47,7 +46,7 @@ bool			FileScanner::isScannableFile(char const *name) {
 	}
 	len = strlen(name);
 	for (unsigned int i = 0; i < 4; ++i) {
-		tmp = false;
+		bool						tmp(false);
 		if (len < _lenExt[i]) {
 			continue ;
 		}
@@ -68,13 +67,14 @@ bool			FileScanner::isScannableFile(char const *name) {
 
 void			FileScanner::scanChildren(char *path) {
 	DIR				*dir;
-	struct dirent	*ent;
 
 	std::cout << "Directory" << std::endl;
 	if (access(path, R_OK | X_OK) == -1) {
 		return ;
 	}
 	if ((dir = opendir(path)) != NULL) {
+		struct dirent	*ent;
+
 		while ((ent = readdir(dir)) != NULL) {
 			if (!strcmp(ent->d_name, ".") || !strcmp(ent->d_name, "..")) {
 				continue ;
@@ -88,7 +88,6 @@ void			FileScanner::scanChildren(char *path) {
 void			FileScanner::scanFile(char *filename) {
 	std::string			line;
 	std::ifstream		ifs;
-	char				*pch;
 	char				*tmp;
 	static sList		*last = &_files;
 	sList				*testList;
@@ -105,6 +104,8 @@ void			FileScanner::scanFile(char *filename) {
 		last = testList;
 	}
 	while (std::getline(ifs, line)) {
+		char				*pch;
+
 		pch = strtok(&(line[0]), _separators);
 		while (pch != NULL) {
 			_t.addValue(pch, tmp);

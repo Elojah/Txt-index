@@ -86,11 +86,12 @@ bool		Node::isValidChar(int n) {
 **To improve by replacing with operator<< ?
 */
 void		Node::display(void) const {
-	unsigned int		nOccs(0);
-	unsigned int		nFiles(0);
 	sList				*tmp;
 
 	if (_files != NULL) {
+		unsigned int		nOccs(0);
+		unsigned int		nFiles(0);
+
 		_files->display();
 		tmp = _files;
 		while (tmp != NULL) {
